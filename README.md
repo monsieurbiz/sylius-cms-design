@@ -175,6 +175,17 @@ The plugin already contains some simple elements.
 
 ![The Image collection element](screenshots/image_collection.png)
 
+### Deactivate an available element
+
+Define the overload of a proposed UiElement in your configuration folder, let's say in `config/packages/monsieurbiz_sylius_richeditor_plugin.yaml` as example.
+
+```yaml
+monsieurbiz_sylius_richeditor:
+    ui_elements:
+        monsieurbiz.youtube:
+            enabled: false
+```
+
 ## Example of a rich product description
 
 ### Admin form with preview

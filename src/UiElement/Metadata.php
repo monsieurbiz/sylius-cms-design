@@ -80,6 +80,14 @@ final class Metadata implements MetadataInterface
     /**
      * {@inheritdoc}
      */
+    public function isEnabled(): bool
+    {
+        return $this->parameters['enabled'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getParameter(string $name)
     {
         if (!$this->hasParameter($name)) {

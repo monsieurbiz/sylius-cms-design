@@ -39,6 +39,11 @@ interface MetadataInterface
     public function getCamelCasedCode(): string;
 
     /**
+     * @return bool
+     */
+    public function isEnabled(): bool;
+
+    /**
      * @param string $name
      *
      * @return mixed

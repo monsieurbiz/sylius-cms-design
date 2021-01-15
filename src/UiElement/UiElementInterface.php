@@ -54,6 +54,11 @@ interface UiElementInterface extends \JsonSerializable
     public function getIcon(): string;
 
     /**
+     * @return bool
+     */
+    public function isEnabled(): bool;
+
+    /**
      * @throws InvalidArgumentException
      */
     public function getFormClass(): string;
