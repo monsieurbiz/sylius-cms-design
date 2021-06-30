@@ -31,7 +31,7 @@ class SeparatorType extends AbstractType
                 'label' => 'monsieurbiz_richeditor_plugin.ui_element.monsieurbiz.separator.field.hidden',
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event): void {
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
                 $data = $event->getData();
                 $data['hidden'] = (bool) ($data['hidden'] ?? false);
                 $event->setData($data);

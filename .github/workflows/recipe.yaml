@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [7.4]
+        sylius: [1.8, 1.9.0]
 
     steps:
       - name: Setup PHP
@@ -44,8 +45,8 @@ jobs:
         id: cache-composer
         with:
           path: /home/runner/.composer/cache
-          key: composer2-php:${{ matrix.php }}-${{ github.sha }}
-          restore-keys: composer2-php:${{ matrix.php }}-
+          key: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-${{ github.sha }}
+          restore-keys: composer2-php:${{ matrix.php }}-sylius:${{ matrix.sylius }}-
 
       - run: mkdir -p /home/runner/{.composer/cache,.config/composer}
         if: steps.cache-composer.outputs.cache-hit != 'true'
@@ -58,14 +59,19 @@ jobs:
 
       - name: Install Sylius-Standard
         run: |
-          composer create-project --prefer-dist --no-scripts --no-progress sylius/sylius-standard sylius
+          composer create-project --prefer-dist --no-scripts --no-progress sylius/sylius-standard sylius "~${{ matrix.sylius }}.0"
+
+      - name: Setup some requirements
+        working-directory: ./sylius
+        run: |
+            composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
+            composer config extra.symfony.allow-contrib true
+            composer config secure-http false
+            composer config --unset platform.php
 
       - name: Install plugin
         working-directory: ./sylius
         run: |
-          composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
-          composer config extra.symfony.allow-contrib true
-          composer config secure-http false
           composer require monsieurbiz/sylius-rich-editor-plugin="*@dev"
 
       - name: Show flex server logs

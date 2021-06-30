@@ -55,7 +55,7 @@ class ImageType extends AbstractType
             ->add('align', AlignmentType::class)
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event): void {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
             // Change image field constraints depending on submitted value
             $options = $event->getForm()->get('image')->getConfig()->getOptions();
             $options['constraints'] = RichEditorConstraints::getImageConstraints($event->getData(), 'image');

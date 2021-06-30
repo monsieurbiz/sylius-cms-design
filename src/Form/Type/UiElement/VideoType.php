@@ -44,7 +44,7 @@ class VideoType extends AbstractType
             ->add('align', AlignmentType::class)
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event): void {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
             // Change video field constraints depending on submitted value
             $options = $event->getForm()->get('video')->getConfig()->getOptions();
             $options['constraints'] = RichEditorConstraints::getVideoConstraints($event->getData(), 'video');

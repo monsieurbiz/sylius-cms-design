@@ -21,6 +21,12 @@ This plugin adds a rich editor on the fields you want. Now you can manage your c
 
 ![Example of rich editor field](screenshots/demo.gif)
 
+## Sylius Compatibility
+
+| Sylius version | 1.8.x | 1.9.0 | 1.9.1 | 1.9.2 |
+|----------------|:-----:|:-----:|:-----:|:-----:|
+| Compatibility  | ✅    | ✅    | ❌    | ❌     |
+
 ## Installation
 
 ```bash

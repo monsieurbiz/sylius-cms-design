@@ -1,0 +1,51 @@
+name: Security
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+
+  security:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.4]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        run: |
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+          echo "date.timezone=UTC" | sudo tee /etc/php/${{ matrix.php }}/cli/conf.d/timezone.ini
+          echo "${{ matrix.php }}" > .php-version
+
+      - uses: actions/cache@v1
+        id: cache-composer
+        with:
+          path: /home/runner/.composer/cache
+          key: composer2-php:${{ matrix.php }}-${{ github.sha }}
+          restore-keys: composer2-php:${{ matrix.php }}-
+
+      - run: mkdir -p /home/runner/.composer/cache
+        if: steps.cache-composer.outputs.cache-hit != 'true'
+
+      - name: Composer v2
+        run: sudo composer self-update --2
+
+      - name: Composer Github Auth
+        run: composer config -g github-oauth.github.com ${{ github.token }}
+
+      - uses: actions/checkout@v2
+    
+      - name: Install PHP dependencies
+        run: composer update --prefer-dist
+
+      - uses: symfonycorp/security-checker-action@v2
+

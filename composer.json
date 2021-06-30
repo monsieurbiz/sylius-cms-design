@@ -8,7 +8,7 @@
         "php": "~7.4",
         "ext-json": "*",
         "ext-intl": "*",
-        "sylius/sylius": "^1.8"
+        "sylius/sylius": "~1.8.0 || 1.9.0"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
