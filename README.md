@@ -175,6 +175,22 @@ The plugin already contains some simple elements.
 
 ![The Image collection element](screenshots/image_collection.png)
 
+### Deactivate an available element
+
+Here is what really happens when deactivating a widget:
+- it's not displayed anymore in frontend
+- it's still editable in backend for old contents but you can't add a new one
+- if the element has an alias, the alias is treated the same way
+
+Define the overload of a proposed UiElement in your configuration folder, let's say in `config/packages/monsieurbiz_sylius_richeditor_plugin.yaml` as example.
+
+```yaml
+monsieurbiz_sylius_richeditor:
+    ui_elements:
+        monsieurbiz.youtube:
+            enabled: false
+```
+
 ## Example of a rich product description
 
 ### Admin form with preview
